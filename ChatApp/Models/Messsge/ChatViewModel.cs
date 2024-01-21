@@ -1,7 +1,7 @@
 ﻿namespace ChatApp.Models.Messsge
 {
 	/// <summary>
-	/// //substitute of database
+	/// substitute of database
 	/// </summary>
 	public class ChatViewModel
 	{
