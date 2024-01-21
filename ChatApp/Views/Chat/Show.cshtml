@@ -1,0 +1,50 @@
+﻿@* this directive makes the model available to the view *@
+@model ChatViewModel
+
+<h3>Messages:</h3>
+
+@*displays the messages (if they exist)*@
+@if (Model.Messages != null)
+{
+	@foreach (var message in Model.Messages) @*actual chatModel passed by method View() in action Show of ChatController*@
+	{
+		<div class="card .bg-light col-6">
+			<div class="card-body">
+				<blockquote class="blockquote mb-0">
+					<p>
+						@message.MessageText @* "@" allow us to use C# code inside HTML*@
+					</p>
+					<footer class="blockquote-footer">
+						@message.Sender
+					</footer>
+				</blockquote>
+			</div>
+		</div>
+	}
+}
+else
+{
+	<p>No messages yet!</p>
+}
+
+<p></p>
+
+@* creating a new message and passes a model to the controller when the form is submitted *@
+<form asp-controller="Chat" asp-action="Send" method="post"> @*which controller and action should be accessed*@
+	<div class="form-group card-header row">
+		<div class="col-12">
+			<h5>Send a new message</h5>
+		</div>
+		<div class="col-8">
+			<label>
+				Message: 
+			</label>
+			<textarea  asp-for="CurrentMessage.MessageText" class="form-control" rows="3"></textarea> @*asp-for is like name tag; binds request data to action parameters by name (model binding)*@
+		</div>
+		<div class="col-4">
+			<label>Sender Name: </label>
+			<input asp-for="CurrentMessage.Sender" class="form-control"/>
+			<input class="btn btn-primary mt-2 float-lg-right" type="submit" value="Send"/>
+		</div>
+	</div>
+</form>
